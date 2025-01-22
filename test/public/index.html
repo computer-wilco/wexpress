@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="/style.css">
+    <title>Welkom!</title>
+</head>
+<body>
+    <h1>Dit is de testwebsite die aangemaakt is door het testbestand!</h1>
+    <p id="tekst">Deze tekst zou veranderd moeten worden door socket.io, maar blijkbaar is dat niet gelukt. Druk anders eens op de knop!</p>
+    <button id="button" onclick="iets()">Druk hier!</button>
+
+    <script>
+        const socket = io();
+
+        socket.on("veranderen", function() {
+            $("#tekst").html("Deze tekst is veranderd door socket.io! De testsite werkt! Dat betekent dat jij nu ook je eigen sites kan gaan maken!");
+            $("#button").css('display','none');
+        });
+
+        function iets() {
+            socket.emit("iets");
+        }
+    </script>
+</body>
+</html>

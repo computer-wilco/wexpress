@@ -1,0 +1,23 @@
+{
+  "name": "wexpress",
+  "version": "1.0.0",
+  "description": "Een Express module die in een paar opdrachten al een volledige Express server opzet.",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "node test/test.js"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "Wilco Joosen",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "ipadres": "^1.0.0",
+    "logginglog": "^1.0.0",
+    "socket.io": "^4.8.1"
+  }
+}
