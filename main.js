@@ -18,6 +18,7 @@ const notfound = JSON.parse(readFileSync(join(dirname, "/json/not_found.json")))
 const blocked = JSON.parse(readFileSync(join(dirname, "/json/blocked.json")));
 
 wexpress.app = express();
+wexpress.server;
 
 wexpress.initialize = function () {
     wexpress.app.set('view engine', 'ejs');
@@ -80,23 +81,22 @@ wexpress.initializePages = function (pagesURL) {
     wexpress.app.use(express.static(pagesURL));
 }
 
-wexpress.createServer = function (PORT, returnSocketIO = false) {
+wexpress.createServer = function () {
     wexpress.app.all('*', (req, res) => {
         res.status(200).render("error/404", {url: req.originalUrl});
     });
 
-    const server = createServer(wexpress.app);
+    wexpress.server = createServer(wexpress.app);
+}
 
-    server.listen(PORT);
+wexpress.returnSocketIO = function () {
+   const io = new Server(wexpress.server);
+   return io;
+}
 
-    serverlog(`WExpress server gestart op ${ip}:${PORT}`);
-
-    if (returnSocketIO) {
-        const io = new Server(server);
-        return io;
-    } else {
-        return undefined;
-    }
+wexpress.listenServer = function (PORT) {
+   wexpress.server.listen(PORT);
+   serverlog(`WExpress server gestart op ${ip}:${PORT}`);
 }
 
 export default wexpress;
